@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>🌸🌮✨ TO-DO LIST ✨🥪🌺</h1>
+        <h1>🌸🌮✨ TODO LIST ✨🥪🌺</h1>
       </header>
       <body>
         <Form 

@@ -1,6 +1,7 @@
 import React from "react";
+import {Draggable} from 'react-beautiful-dnd';
 
-const Todo = ({text, todo, todos, setTodos}) =>{
+const Todo = ({text, todo, todos, setTodos, index}) =>{
     //Events
     const deleteHandler = () =>{
         //Set the todo list as all todo items except for
@@ -17,19 +18,32 @@ const Todo = ({text, todo, todos, setTodos}) =>{
             };
             return item;
         }))
+        console.log(todos);
     };
 
     return(
-        <div className="todo-container">
-            <li className={`todo-item ${todo.completed ? "completed":""}`}>{text}</li>
-            {/*fas stands for Font Awesome Solid, which is a part of the React Font Awesome package*/}
-            <button onClick={completeHandler} className="complete-btn">
-                <i className = "fas fa-check"></i>
-            </button>
-            <button onClick={deleteHandler} className="trash-btn">
-                <i className = "fas fa-trash"></i>
-            </button>
-        </div>
+        <Draggable 
+            draggableId={todo.id}
+            index={index}
+            key={todo.id}
+        >
+            {(provided) => (
+                <div className="todo-container"
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    ref={provided.innerRef}
+                >
+                    <li className={`todo-item ${todo.completed ? "completed":""}`}>{text}</li>
+                    {/*fas stands for Font Awesome Solid, which is a part of the React Font Awesome package*/}
+                    <button onClick={completeHandler} className="complete-btn">
+                        <i className = "fas fa-check"></i>
+                    </button>
+                    <button onClick={deleteHandler} className="trash-btn">
+                        <i className = "fas fa-trash"></i>
+                    </button>
+                </div>
+            )}
+        </Draggable>
     );
 };
 

@@ -3,7 +3,7 @@ import Todo from "./Todo";
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 
-const TodoList = ({todos, setTodos, filteredTodos}) =>{
+const TodoList = ({todos, setTodos}) =>{
     const handleOnDragEnd = (result) =>{
         if(!result.destination) return;
     
@@ -22,7 +22,7 @@ const TodoList = ({todos, setTodos, filteredTodos}) =>{
                         ref={provided.innerRef}
                     >
                         <ul className="todo-list">
-                            {filteredTodos.map((todo,index) => (
+                            {todos.map((todo,index) => (
                                 <Todo 
                                     text={todo.text} 
                                     todo={todo} 

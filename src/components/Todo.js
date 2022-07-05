@@ -18,7 +18,6 @@ const Todo = ({text, todo, todos, setTodos, index}) =>{
             };
             return item;
         }))
-        console.log(todos);
     };
 
     return(
@@ -33,12 +32,12 @@ const Todo = ({text, todo, todos, setTodos, index}) =>{
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    <li className={`todo-item ${todo.completed ? "completed":""}`}>{text}</li>
+                    <li className={`todo-item ${todo.completed ? "completed":""} ${todo.invisible ? "invisible":""}`}>{text}</li>
                     {/*fas stands for Font Awesome Solid, which is a part of the React Font Awesome package*/}
-                    <button onClick={completeHandler} className="complete-btn">
+                    <button onClick={completeHandler} className={`complete-btn ${todo.invisible ? "invisible":""}`}>
                         <i className = "fas fa-check"></i>
                     </button>
-                    <button onClick={deleteHandler} className="trash-btn">
+                    <button onClick={deleteHandler} className={`trash-btn ${todo.invisible ? "invisible":""}`}>
                         <i className = "fas fa-trash"></i>
                     </button>
                 </div>

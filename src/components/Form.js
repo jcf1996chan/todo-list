@@ -16,7 +16,7 @@ const Form = ({setInputText, inputText, todos, setTodos, setStatus}) => {
         e.preventDefault(); 
         setTodos([
             ...todos, //Whatever is already in the list
-            {text: inputText, completed: false, id: uuid()}
+            {text: inputText, completed: false, id: uuid(), invisible: false}
         ]);
         //Reset the input form to empty after submission
         setInputText("");

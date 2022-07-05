@@ -8,28 +8,49 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
   const [status, setStatus] = useState("all");
-  const [filteredTodos, setFilteredTodos] = useState([]);
 
   //***Run whenever todos or status change
   useEffect(()=> {
-    //If we are only using filterHandler() in one context we can just put this in useEffect()
-    filterHandler();
     saveLocalTodos();
-  },[todos,status]);
+  },[todos]);
 
-  //Functions used in useEffect
+  useEffect(()=> {
+    filterHandler();
+  },[status])
+
   const filterHandler = () =>{
     switch(status){
       case 'completed':
-        setFilteredTodos(todos.filter(todo => todo.completed === true));
+        setTodos(todos.map(item => {
+            if(item.completed !== true){
+                return{
+                    ...item, invisible: true
+                };
+            }
+            return {...item, invisible: false};
+        }))
         break;
+
       case 'incomplete':
-        setFilteredTodos(todos.filter(todo => todo.completed === false));
+        setTodos(todos.map(item => {
+            if(item.completed !== false){
+                return{
+                    ...item, invisible: true
+                };
+            }
+            return {...item, invisible: false};
+        }))
         break;
+
       default:
-        setFilteredTodos(todos);
+        setTodos(todos.map(item => {
+            return{
+                ...item, invisible: false
+            };
+        }))
+        break;
     }
-  };
+  }
 
   const saveLocalTodos = () => {
       localStorage.setItem("todos", JSON.stringify(todos));
@@ -51,7 +72,6 @@ function App() {
         <TodoList 
           todos={todos} 
           setTodos={setTodos}
-          filteredTodos={filteredTodos}
         />
       </body>
     </div>
